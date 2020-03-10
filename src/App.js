@@ -1,23 +1,31 @@
 import React from 'react';
-import logo from './logo.svg';
+import { useFormik } from 'formik';
+
 import './App.css';
 
-function App() {
+const App = () => {
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+    },
+    onSubmit: values => {
+      alert(JSON.stringify(values, null, 2));
+    }
+  });
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <form onSubmit={formik.handleSubmit}>
+          <label htmlFor="email">Email Address{' '}</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            onChange={formik.handleChange}
+            value={formik.values.email}
+          />
+        </form>
       </header>
     </div>
   );
